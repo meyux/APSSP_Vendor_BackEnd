@@ -121,6 +121,9 @@ public class VendorLoginController implements Serializable {
         return getFacade().findAll();
     }
 
+    public String checkLogin() {
+        return "/vendorSubmit";
+    }
     @FacesConverter(forClass = VendorLogin.class)
     public static class VendorLoginControllerConverter implements Converter {
 
