@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BillingMasterCreateDlg" widgetVar="BillingMasterCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateBillingMasterTitle}">
+            <h:form id="BillingMasterCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{billingMasterController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateBillingMasterLabel_refId}" for="refId" />
+                        <p:inputText id="refId" value="#{billingMasterController.selected.refId}" title="#{bundle.CreateBillingMasterTitle_refId}" required="true" requiredMessage="#{bundle.CreateBillingMasterRequiredMessage_refId}"/>
+                        <p:outputLabel value="#{bundle.CreateBillingMasterLabel_companyId}" for="companyId" />
+                        <p:inputText id="companyId" value="#{billingMasterController.selected.companyId}" title="#{bundle.CreateBillingMasterTitle_companyId}" />
+                        <p:outputLabel value="#{bundle.CreateBillingMasterLabel_vendorId}" for="vendorId" />
+                        <p:inputText id="vendorId" value="#{billingMasterController.selected.vendorId}" title="#{bundle.CreateBillingMasterTitle_vendorId}" />
+                        <p:outputLabel value="#{bundle.CreateBillingMasterLabel_invoiceNo}" for="invoiceNo" />
+                        <p:inputText id="invoiceNo" value="#{billingMasterController.selected.invoiceNo}" title="#{bundle.CreateBillingMasterTitle_invoiceNo}" />
+                        <p:outputLabel value="#{bundle.CreateBillingMasterLabel_invoiceDate}" for="invoiceDate" />
+                        <p:calendar id="invoiceDate" pattern="MM/dd/yyyy" value="#{billingMasterController.selected.invoiceDate}" title="#{bundle.EditBillingMasterTitle_invoiceDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateBillingMasterLabel_invoiceAmount}" for="invoiceAmount" />
+                        <p:inputText id="invoiceAmount" value="#{billingMasterController.selected.invoiceAmount}" title="#{bundle.CreateBillingMasterTitle_invoiceAmount}" />
+                        <p:outputLabel value="#{bundle.CreateBillingMasterLabel_billingStatus}" for="billingStatus" />
+                        <p:selectOneMenu id="billingStatus" value="#{billingMasterController.selected.billingStatus}" >
+                            <f:selectItems value="#{billingStatusController.itemsAvailableSelectOne}"
+                                           var="billingStatusItem"
+                                           itemValue="#{billingStatusItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateBillingMasterLabel_billingDetail}" for="billingDetail" />
+                        <p:selectOneMenu id="billingDetail" value="#{billingMasterController.selected.billingDetail}" >
+                            <f:selectItems value="#{billingDetailController.itemsAvailableSelectOne}"
+                                           var="billingDetailItem"
+                                           itemValue="#{billingDetailItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{billingMasterController.create}" value="#{bundle.Save}" update="display,:BillingMasterListForm:datalist,:growl" oncomplete="handleSubmit(args,'BillingMasterCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="BillingMasterCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

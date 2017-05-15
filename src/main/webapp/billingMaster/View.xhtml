@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BillingMasterViewDlg" widgetVar="BillingMasterViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewBillingMasterTitle}">
+            <h:form id="BillingMasterViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{billingMasterController.selected != null}">
+                        <h:outputText value="#{bundle.ViewBillingMasterLabel_refId}"/>
+                        <h:outputText value="#{billingMasterController.selected.refId}" title="#{bundle.ViewBillingMasterTitle_refId}"/>
+                        <h:outputText value="#{bundle.ViewBillingMasterLabel_companyId}"/>
+                        <h:outputText value="#{billingMasterController.selected.companyId}" title="#{bundle.ViewBillingMasterTitle_companyId}"/>
+                        <h:outputText value="#{bundle.ViewBillingMasterLabel_vendorId}"/>
+                        <h:outputText value="#{billingMasterController.selected.vendorId}" title="#{bundle.ViewBillingMasterTitle_vendorId}"/>
+                        <h:outputText value="#{bundle.ViewBillingMasterLabel_invoiceNo}"/>
+                        <h:outputText value="#{billingMasterController.selected.invoiceNo}" title="#{bundle.ViewBillingMasterTitle_invoiceNo}"/>
+                        <h:outputText value="#{bundle.ViewBillingMasterLabel_invoiceDate}"/>
+                        <h:outputText value="#{billingMasterController.selected.invoiceDate}" title="#{bundle.ViewBillingMasterTitle_invoiceDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewBillingMasterLabel_invoiceAmount}"/>
+                        <h:outputText value="#{billingMasterController.selected.invoiceAmount}" title="#{bundle.ViewBillingMasterTitle_invoiceAmount}"/>
+                        <h:outputText value="#{bundle.ViewBillingMasterLabel_billingStatus}"/>
+                        <h:outputText value="#{billingMasterController.selected.billingStatus}" title="#{bundle.ViewBillingMasterTitle_billingStatus}"/>
+                        <h:outputText value="#{bundle.ViewBillingMasterLabel_billingDetail}"/>
+                        <h:outputText value="#{billingMasterController.selected.billingDetail}" title="#{bundle.ViewBillingMasterTitle_billingDetail}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="BillingMasterViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

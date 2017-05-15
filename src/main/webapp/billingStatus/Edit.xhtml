@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BillingStatusEditDlg" widgetVar="BillingStatusEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditBillingStatusTitle}">
+            <h:form id="BillingStatusEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{billingStatusController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditBillingStatusLabel_refId}" for="refId" />
+                        <p:inputText id="refId" value="#{billingStatusController.selected.refId}" title="#{bundle.EditBillingStatusTitle_refId}" required="true" requiredMessage="#{bundle.EditBillingStatusRequiredMessage_refId}"/>
+                        <p:outputLabel value="#{bundle.EditBillingStatusLabel_statusId}" for="statusId" />
+                        <p:inputText id="statusId" value="#{billingStatusController.selected.statusId}" title="#{bundle.EditBillingStatusTitle_statusId}" />
+                        <p:outputLabel value="#{bundle.EditBillingStatusLabel_statusDate}" for="statusDate" />
+                        <p:calendar id="statusDate" pattern="MM/dd/yyyy" value="#{billingStatusController.selected.statusDate}" title="#{bundle.EditBillingStatusTitle_statusDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditBillingStatusLabel_billingMaster}" for="billingMaster" />
+                        <p:selectOneMenu id="billingMaster" value="#{billingStatusController.selected.billingMaster}" required="true" requiredMessage="#{bundle.EditBillingStatusRequiredMessage_billingMaster}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{billingMasterController.itemsAvailableSelectOne}"
+                                           var="billingMasterItem"
+                                           itemValue="#{billingMasterItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{billingStatusController.update}" value="#{bundle.Save}" update="display,:BillingStatusListForm:datalist,:growl" oncomplete="handleSubmit(args, 'BillingStatusEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="BillingStatusEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

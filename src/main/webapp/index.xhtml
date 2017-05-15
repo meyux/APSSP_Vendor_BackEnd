@@ -10,6 +10,7 @@
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
                 <title>AP Shared Services</title>
+                <h:outputStylesheet name="css/jsfcrud.css"/>
             </f:facet>
         </h:head>
 
@@ -42,8 +43,20 @@
                     <h:link outcome="/vendorLogin/List" value="Show All VendorLogin Items"/>
                     <br />
                     <h:link outcome="/vendorMaster/List" value="Show All VendorMaster Items"/>
+                    <br />
+                    <h:link outcome="/billingDetail/List" value="Show All BillingDetail Items"/>
+                    <br />
+                    <h:link outcome="/billingMaster/List" value="Show All BillingMaster Items"/>
+                    <br />
+                    <h:link outcome="/billingStatus/List" value="Show All BillingStatus Items"/>
+                    <br />
+                    <h:link outcome="/statusMaster/List" value="Show All StatusMaster Items"/>
                 </p:layoutUnit>
             </p:layout>
         </h:body>
+
+
+
+
     </f:view>
 </html>

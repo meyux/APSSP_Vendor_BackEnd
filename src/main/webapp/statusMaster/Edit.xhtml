@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="StatusMasterEditDlg" widgetVar="StatusMasterEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditStatusMasterTitle}">
+            <h:form id="StatusMasterEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{statusMasterController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditStatusMasterLabel_statusId}" for="statusId" />
+                        <p:inputText id="statusId" value="#{statusMasterController.selected.statusId}" title="#{bundle.EditStatusMasterTitle_statusId}" required="true" requiredMessage="#{bundle.EditStatusMasterRequiredMessage_statusId}"/>
+                        <p:outputLabel value="#{bundle.EditStatusMasterLabel_statusDesc}" for="statusDesc" />
+                        <p:inputText id="statusDesc" value="#{statusMasterController.selected.statusDesc}" title="#{bundle.EditStatusMasterTitle_statusDesc}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{statusMasterController.update}" value="#{bundle.Save}" update="display,:StatusMasterListForm:datalist,:growl" oncomplete="handleSubmit(args, 'StatusMasterEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="StatusMasterEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

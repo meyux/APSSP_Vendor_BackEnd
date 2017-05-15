@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BillingDetailCreateDlg" widgetVar="BillingDetailCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateBillingDetailTitle}">
+            <h:form id="BillingDetailCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{billingDetailController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateBillingDetailLabel_refId}" for="refId" />
+                        <p:inputText id="refId" value="#{billingDetailController.selected.refId}" title="#{bundle.CreateBillingDetailTitle_refId}" required="true" requiredMessage="#{bundle.CreateBillingDetailRequiredMessage_refId}"/>
+                        <p:outputLabel value="#{bundle.CreateBillingDetailLabel_docType}" for="docType" />
+                        <p:inputText id="docType" value="#{billingDetailController.selected.docType}" title="#{bundle.CreateBillingDetailTitle_docType}" />
+                        <p:outputLabel value="#{bundle.CreateBillingDetailLabel_pages}" for="pages" />
+                        <p:inputText id="pages" value="#{billingDetailController.selected.pages}" title="#{bundle.CreateBillingDetailTitle_pages}" />
+                        <p:outputLabel value="#{bundle.CreateBillingDetailLabel_docNo}" for="docNo" />
+                        <p:inputText id="docNo" value="#{billingDetailController.selected.docNo}" title="#{bundle.CreateBillingDetailTitle_docNo}" />
+                        <p:outputLabel value="#{bundle.CreateBillingDetailLabel_docDate}" for="docDate" />
+                        <p:calendar id="docDate" pattern="MM/dd/yyyy" value="#{billingDetailController.selected.docDate}" title="#{bundle.EditBillingDetailTitle_docDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateBillingDetailLabel_filename}" for="filename" />
+                        <p:inputText id="filename" value="#{billingDetailController.selected.filename}" title="#{bundle.CreateBillingDetailTitle_filename}" />
+                        <p:outputLabel value="#{bundle.CreateBillingDetailLabel_docrefId}" for="docrefId" />
+                        <p:inputText id="docrefId" value="#{billingDetailController.selected.docrefId}" title="#{bundle.CreateBillingDetailTitle_docrefId}" />
+                        <p:outputLabel value="#{bundle.CreateBillingDetailLabel_uploadBy}" for="uploadBy" />
+                        <p:inputText id="uploadBy" value="#{billingDetailController.selected.uploadBy}" title="#{bundle.CreateBillingDetailTitle_uploadBy}" />
+                        <p:outputLabel value="#{bundle.CreateBillingDetailLabel_uploadDate}" for="uploadDate" />
+                        <p:calendar id="uploadDate" pattern="MM/dd/yyyy" value="#{billingDetailController.selected.uploadDate}" title="#{bundle.EditBillingDetailTitle_uploadDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateBillingDetailLabel_billingMaster}" for="billingMaster" />
+                        <p:selectOneMenu id="billingMaster" value="#{billingDetailController.selected.billingMaster}" required="true" requiredMessage="#{bundle.EditBillingDetailRequiredMessage_billingMaster}">
+                            <f:selectItems value="#{billingMasterController.itemsAvailableSelectOne}"
+                                           var="billingMasterItem"
+                                           itemValue="#{billingMasterItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{billingDetailController.create}" value="#{bundle.Save}" update="display,:BillingDetailListForm:datalist,:growl" oncomplete="handleSubmit(args,'BillingDetailCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="BillingDetailCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

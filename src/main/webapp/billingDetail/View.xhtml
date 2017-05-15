@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BillingDetailViewDlg" widgetVar="BillingDetailViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewBillingDetailTitle}">
+            <h:form id="BillingDetailViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{billingDetailController.selected != null}">
+                        <h:outputText value="#{bundle.ViewBillingDetailLabel_refId}"/>
+                        <h:outputText value="#{billingDetailController.selected.refId}" title="#{bundle.ViewBillingDetailTitle_refId}"/>
+                        <h:outputText value="#{bundle.ViewBillingDetailLabel_docType}"/>
+                        <h:outputText value="#{billingDetailController.selected.docType}" title="#{bundle.ViewBillingDetailTitle_docType}"/>
+                        <h:outputText value="#{bundle.ViewBillingDetailLabel_pages}"/>
+                        <h:outputText value="#{billingDetailController.selected.pages}" title="#{bundle.ViewBillingDetailTitle_pages}"/>
+                        <h:outputText value="#{bundle.ViewBillingDetailLabel_docNo}"/>
+                        <h:outputText value="#{billingDetailController.selected.docNo}" title="#{bundle.ViewBillingDetailTitle_docNo}"/>
+                        <h:outputText value="#{bundle.ViewBillingDetailLabel_docDate}"/>
+                        <h:outputText value="#{billingDetailController.selected.docDate}" title="#{bundle.ViewBillingDetailTitle_docDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewBillingDetailLabel_filename}"/>
+                        <h:outputText value="#{billingDetailController.selected.filename}" title="#{bundle.ViewBillingDetailTitle_filename}"/>
+                        <h:outputText value="#{bundle.ViewBillingDetailLabel_docrefId}"/>
+                        <h:outputText value="#{billingDetailController.selected.docrefId}" title="#{bundle.ViewBillingDetailTitle_docrefId}"/>
+                        <h:outputText value="#{bundle.ViewBillingDetailLabel_uploadBy}"/>
+                        <h:outputText value="#{billingDetailController.selected.uploadBy}" title="#{bundle.ViewBillingDetailTitle_uploadBy}"/>
+                        <h:outputText value="#{bundle.ViewBillingDetailLabel_uploadDate}"/>
+                        <h:outputText value="#{billingDetailController.selected.uploadDate}" title="#{bundle.ViewBillingDetailTitle_uploadDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewBillingDetailLabel_billingMaster}"/>
+                        <h:outputText value="#{billingDetailController.selected.billingMaster}" title="#{bundle.ViewBillingDetailTitle_billingMaster}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="BillingDetailViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
