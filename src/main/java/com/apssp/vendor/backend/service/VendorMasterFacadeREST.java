@@ -25,7 +25,7 @@ import javax.ws.rs.core.MediaType;
  * @author meyux
  */
 @Stateless
-@Path("com.apssp.vendor.backend.vendormaster")
+@Path("vendor")
 public class VendorMasterFacadeREST extends AbstractFacade<VendorMaster> {
 
     @PersistenceContext(unitName = "com.apssp.vendor.backend_APSSP_Vendor_BackEnd_war_1.0-SNAPSHOTPU")
@@ -37,14 +37,14 @@ public class VendorMasterFacadeREST extends AbstractFacade<VendorMaster> {
 
     @POST
     @Override
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
     public void create(VendorMaster entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("{id}")
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Consumes({ MediaType.APPLICATION_JSON})
     public void edit(@PathParam("id") Integer id, VendorMaster entity) {
         super.edit(entity);
     }
@@ -57,21 +57,21 @@ public class VendorMasterFacadeREST extends AbstractFacade<VendorMaster> {
 
     @GET
     @Path("{id}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
     public VendorMaster find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
     @Override
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
     public List<VendorMaster> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
     public List<VendorMaster> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }

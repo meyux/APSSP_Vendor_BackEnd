@@ -29,6 +29,7 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
+        resources.add(com.apssp.vendor.backend.NewCrossOriginResourceSharingFilter.class);
         resources.add(com.apssp.vendor.backend.service.BillingDetailFacadeREST.class);
         resources.add(com.apssp.vendor.backend.service.BillingMasterFacadeREST.class);
         resources.add(com.apssp.vendor.backend.service.BillingStatusFacadeREST.class);
