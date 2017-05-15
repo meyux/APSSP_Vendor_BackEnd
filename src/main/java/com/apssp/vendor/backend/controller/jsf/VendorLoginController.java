@@ -122,8 +122,24 @@ public class VendorLoginController implements Serializable {
     }
 
     public String checkLogin() {
-        return "/vendorSubmit";
+        String loginId = selected.getLoginId();
+        String pass = selected.getPassword();
+        List<VendorLogin> vendors = getItems();
+        
+        if(loginId == null || pass == null)
+            return "/index";
+        if(!vendors.isEmpty()) {
+            for (VendorLogin vendor: vendors) {
+                if(loginId.equals(vendor.getLoginId()) && pass.equals(vendor.getPassword())) {
+                    selected.setVendorId(vendor.getVendorId());
+                    return "/vendorSubmit";
+                } else {
+                }
+            }
+        }
+        return "/index";
     }
+    
     @FacesConverter(forClass = VendorLogin.class)
     public static class VendorLoginControllerConverter implements Converter {
 
