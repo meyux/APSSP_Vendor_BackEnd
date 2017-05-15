@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="VendorMasterViewDlg" widgetVar="VendorMasterViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewVendorMasterTitle}">
+            <h:form id="VendorMasterViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{vendorMasterController.selected != null}">
+                        <h:outputText value="#{bundle.ViewVendorMasterLabel_vendorId}"/>
+                        <h:outputText value="#{vendorMasterController.selected.vendorId}" title="#{bundle.ViewVendorMasterTitle_vendorId}"/>
+                        <h:outputText value="#{bundle.ViewVendorMasterLabel_vendorNo}"/>
+                        <h:outputText value="#{vendorMasterController.selected.vendorNo}" title="#{bundle.ViewVendorMasterTitle_vendorNo}"/>
+                        <h:outputText value="#{bundle.ViewVendorMasterLabel_vendorName}"/>
+                        <h:outputText value="#{vendorMasterController.selected.vendorName}" title="#{bundle.ViewVendorMasterTitle_vendorName}"/>
+                        <h:outputText value="#{bundle.ViewVendorMasterLabel_tin}"/>
+                        <h:outputText value="#{vendorMasterController.selected.tin}" title="#{bundle.ViewVendorMasterTitle_tin}"/>
+                        <h:outputText value="#{bundle.ViewVendorMasterLabel_vatRegistered}"/>
+                        <h:outputText value="#{vendorMasterController.selected.vatRegistered}" title="#{bundle.ViewVendorMasterTitle_vatRegistered}"/>
+                        <h:outputText value="#{bundle.ViewVendorMasterLabel_address1}"/>
+                        <h:outputText value="#{vendorMasterController.selected.address1}" title="#{bundle.ViewVendorMasterTitle_address1}"/>
+                        <h:outputText value="#{bundle.ViewVendorMasterLabel_address2}"/>
+                        <h:outputText value="#{vendorMasterController.selected.address2}" title="#{bundle.ViewVendorMasterTitle_address2}"/>
+                        <h:outputText value="#{bundle.ViewVendorMasterLabel_address3}"/>
+                        <h:outputText value="#{vendorMasterController.selected.address3}" title="#{bundle.ViewVendorMasterTitle_address3}"/>
+                        <h:outputText value="#{bundle.ViewVendorMasterLabel_address4}"/>
+                        <h:outputText value="#{vendorMasterController.selected.address4}" title="#{bundle.ViewVendorMasterTitle_address4}"/>
+                        <h:outputText value="#{bundle.ViewVendorMasterLabel_countryCode}"/>
+                        <h:outputText value="#{vendorMasterController.selected.countryCode}" title="#{bundle.ViewVendorMasterTitle_countryCode}"/>
+                        <h:outputText value="#{bundle.ViewVendorMasterLabel_vendorSiteCode}"/>
+                        <h:outputText value="#{vendorMasterController.selected.vendorSiteCode}" title="#{bundle.ViewVendorMasterTitle_vendorSiteCode}"/>
+                        <h:outputText value="#{bundle.ViewVendorMasterLabel_vendorSiteId}"/>
+                        <h:outputText value="#{vendorMasterController.selected.vendorSiteId}" title="#{bundle.ViewVendorMasterTitle_vendorSiteId}"/>
+                        <h:outputText value="#{bundle.ViewVendorMasterLabel_termsName}"/>
+                        <h:outputText value="#{vendorMasterController.selected.termsName}" title="#{bundle.ViewVendorMasterTitle_termsName}"/>
+                        <h:outputText value="#{bundle.ViewVendorMasterLabel_terms}"/>
+                        <h:outputText value="#{vendorMasterController.selected.terms}" title="#{bundle.ViewVendorMasterTitle_terms}"/>
+                        <h:outputText value="#{bundle.ViewVendorMasterLabel_awtGroup}"/>
+                        <h:outputText value="#{vendorMasterController.selected.awtGroup}" title="#{bundle.ViewVendorMasterTitle_awtGroup}"/>
+                        <h:outputText value="#{bundle.ViewVendorMasterLabel_status}"/>
+                        <h:outputText value="#{vendorMasterController.selected.status}" title="#{bundle.ViewVendorMasterTitle_status}"/>
+                        <h:outputText value="#{bundle.ViewVendorMasterLabel_statusDate}"/>
+                        <h:outputText value="#{vendorMasterController.selected.statusDate}" title="#{bundle.ViewVendorMasterTitle_statusDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewVendorMasterLabel_vendorLogin}"/>
+                        <h:outputText value="#{vendorMasterController.selected.vendorLogin}" title="#{bundle.ViewVendorMasterTitle_vendorLogin}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="VendorMasterViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

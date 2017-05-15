@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="VendorLoginCreateDlg" widgetVar="VendorLoginCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateVendorLoginTitle}">
+            <h:form id="VendorLoginCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{vendorLoginController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateVendorLoginLabel_vendorId}" for="vendorId" />
+                        <p:inputText id="vendorId" value="#{vendorLoginController.selected.vendorId}" title="#{bundle.CreateVendorLoginTitle_vendorId}" required="true" requiredMessage="#{bundle.CreateVendorLoginRequiredMessage_vendorId}"/>
+                        <p:outputLabel value="#{bundle.CreateVendorLoginLabel_loginId}" for="loginId" />
+                        <p:inputText id="loginId" value="#{vendorLoginController.selected.loginId}" title="#{bundle.CreateVendorLoginTitle_loginId}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLoginLabel_password}" for="password" />
+                        <p:inputText id="password" value="#{vendorLoginController.selected.password}" title="#{bundle.CreateVendorLoginTitle_password}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLoginLabel_vendorMaster}" for="vendorMaster" />
+                        <p:selectOneMenu id="vendorMaster" value="#{vendorLoginController.selected.vendorMaster}" required="true" requiredMessage="#{bundle.EditVendorLoginRequiredMessage_vendorMaster}">
+                            <f:selectItems value="#{vendorMasterController.itemsAvailableSelectOne}"
+                                           var="vendorMasterItem"
+                                           itemValue="#{vendorMasterItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{vendorLoginController.create}" value="#{bundle.Save}" update="display,:VendorLoginListForm:datalist,:growl" oncomplete="handleSubmit(args,'VendorLoginCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="VendorLoginCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListVendorMasterTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="VendorMasterListForm">
+                <p:panel header="#{bundle.ListVendorMasterTitle}">
+                    <p:dataTable id="datalist" value="#{vendorMasterController.items}" var="item"
+                                 selectionMode="single" selection="#{vendorMasterController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.vendorId}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVendorMasterTitle_vendorId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vendorId}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVendorMasterTitle_vendorNo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vendorNo}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVendorMasterTitle_vendorName}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vendorName}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVendorMasterTitle_tin}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tin}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVendorMasterTitle_vatRegistered}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vatRegistered}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVendorMasterTitle_address1}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.address1}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVendorMasterTitle_address2}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.address2}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVendorMasterTitle_address3}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.address3}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVendorMasterTitle_address4}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.address4}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVendorMasterTitle_countryCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.countryCode}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVendorMasterTitle_vendorSiteCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vendorSiteCode}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVendorMasterTitle_vendorSiteId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vendorSiteId}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVendorMasterTitle_termsName}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.termsName}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVendorMasterTitle_terms}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.terms}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVendorMasterTitle_awtGroup}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.awtGroup}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVendorMasterTitle_status}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.status}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVendorMasterTitle_statusDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.statusDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVendorMasterTitle_vendorLogin}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vendorLogin}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{vendorMasterController.prepareCreate}" update=":VendorMasterCreateForm" oncomplete="PF('VendorMasterCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":VendorMasterViewForm" oncomplete="PF('VendorMasterViewDialog').show()" disabled="#{empty vendorMasterController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":VendorMasterEditForm" oncomplete="PF('VendorMasterEditDialog').show()" disabled="#{empty vendorMasterController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{vendorMasterController.destroy}" update=":growl,datalist" disabled="#{empty vendorMasterController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

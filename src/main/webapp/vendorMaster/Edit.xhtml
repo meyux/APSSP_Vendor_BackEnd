@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="VendorMasterEditDlg" widgetVar="VendorMasterEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditVendorMasterTitle}">
+            <h:form id="VendorMasterEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{vendorMasterController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditVendorMasterLabel_vendorId}" for="vendorId" />
+                        <p:inputText id="vendorId" value="#{vendorMasterController.selected.vendorId}" title="#{bundle.EditVendorMasterTitle_vendorId}" required="true" requiredMessage="#{bundle.EditVendorMasterRequiredMessage_vendorId}"/>
+                        <p:outputLabel value="#{bundle.EditVendorMasterLabel_vendorNo}" for="vendorNo" />
+                        <p:inputText id="vendorNo" value="#{vendorMasterController.selected.vendorNo}" title="#{bundle.EditVendorMasterTitle_vendorNo}" />
+                        <p:outputLabel value="#{bundle.EditVendorMasterLabel_vendorName}" for="vendorName" />
+                        <p:inputText id="vendorName" value="#{vendorMasterController.selected.vendorName}" title="#{bundle.EditVendorMasterTitle_vendorName}" />
+                        <p:outputLabel value="#{bundle.EditVendorMasterLabel_tin}" for="tin" />
+                        <p:inputText id="tin" value="#{vendorMasterController.selected.tin}" title="#{bundle.EditVendorMasterTitle_tin}" />
+                        <p:outputLabel value="#{bundle.EditVendorMasterLabel_vatRegistered}" for="vatRegistered" />
+                        <p:inputText id="vatRegistered" value="#{vendorMasterController.selected.vatRegistered}" title="#{bundle.EditVendorMasterTitle_vatRegistered}" required="true" requiredMessage="#{bundle.EditVendorMasterRequiredMessage_vatRegistered}"/>
+                        <p:outputLabel value="#{bundle.EditVendorMasterLabel_address1}" for="address1" />
+                        <p:inputText id="address1" value="#{vendorMasterController.selected.address1}" title="#{bundle.EditVendorMasterTitle_address1}" />
+                        <p:outputLabel value="#{bundle.EditVendorMasterLabel_address2}" for="address2" />
+                        <p:inputText id="address2" value="#{vendorMasterController.selected.address2}" title="#{bundle.EditVendorMasterTitle_address2}" />
+                        <p:outputLabel value="#{bundle.EditVendorMasterLabel_address3}" for="address3" />
+                        <p:inputText id="address3" value="#{vendorMasterController.selected.address3}" title="#{bundle.EditVendorMasterTitle_address3}" />
+                        <p:outputLabel value="#{bundle.EditVendorMasterLabel_address4}" for="address4" />
+                        <p:inputText id="address4" value="#{vendorMasterController.selected.address4}" title="#{bundle.EditVendorMasterTitle_address4}" />
+                        <p:outputLabel value="#{bundle.EditVendorMasterLabel_countryCode}" for="countryCode" />
+                        <p:inputText id="countryCode" value="#{vendorMasterController.selected.countryCode}" title="#{bundle.EditVendorMasterTitle_countryCode}" />
+                        <p:outputLabel value="#{bundle.EditVendorMasterLabel_vendorSiteCode}" for="vendorSiteCode" />
+                        <p:inputText id="vendorSiteCode" value="#{vendorMasterController.selected.vendorSiteCode}" title="#{bundle.EditVendorMasterTitle_vendorSiteCode}" />
+                        <p:outputLabel value="#{bundle.EditVendorMasterLabel_vendorSiteId}" for="vendorSiteId" />
+                        <p:inputText id="vendorSiteId" value="#{vendorMasterController.selected.vendorSiteId}" title="#{bundle.EditVendorMasterTitle_vendorSiteId}" />
+                        <p:outputLabel value="#{bundle.EditVendorMasterLabel_termsName}" for="termsName" />
+                        <p:inputText id="termsName" value="#{vendorMasterController.selected.termsName}" title="#{bundle.EditVendorMasterTitle_termsName}" />
+                        <p:outputLabel value="#{bundle.EditVendorMasterLabel_terms}" for="terms" />
+                        <p:inputText id="terms" value="#{vendorMasterController.selected.terms}" title="#{bundle.EditVendorMasterTitle_terms}" />
+                        <p:outputLabel value="#{bundle.EditVendorMasterLabel_awtGroup}" for="awtGroup" />
+                        <p:inputText id="awtGroup" value="#{vendorMasterController.selected.awtGroup}" title="#{bundle.EditVendorMasterTitle_awtGroup}" />
+                        <p:outputLabel value="#{bundle.EditVendorMasterLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{vendorMasterController.selected.status}" title="#{bundle.EditVendorMasterTitle_status}" />
+                        <p:outputLabel value="#{bundle.EditVendorMasterLabel_statusDate}" for="statusDate" />
+                        <p:calendar id="statusDate" pattern="MM/dd/yyyy" value="#{vendorMasterController.selected.statusDate}" title="#{bundle.EditVendorMasterTitle_statusDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditVendorMasterLabel_vendorLogin}" for="vendorLogin" />
+                        <p:selectOneMenu id="vendorLogin" value="#{vendorMasterController.selected.vendorLogin}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{vendorLoginController.itemsAvailableSelectOne}"
+                                           var="vendorLoginItem"
+                                           itemValue="#{vendorLoginItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{vendorMasterController.update}" value="#{bundle.Save}" update="display,:VendorMasterListForm:datalist,:growl" oncomplete="handleSubmit(args, 'VendorMasterEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="VendorMasterEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
