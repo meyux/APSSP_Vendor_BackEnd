@@ -3,16 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.apssp.vendor.backend;
+package com.apssp.vendor.backend.entities;
 
+import com.apssp.vendor.backend.entities.VendorLogin;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -47,6 +50,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "VendorMaster.findByStatus", query = "SELECT v FROM VendorMaster v WHERE v.status = :status")
     , @NamedQuery(name = "VendorMaster.findByStatusDate", query = "SELECT v FROM VendorMaster v WHERE v.statusDate = :statusDate")})
 public class VendorMaster implements Serializable {
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "vendorMaster")
+    private VendorLogin vendorLogin;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -269,6 +275,14 @@ public class VendorMaster implements Serializable {
     @Override
     public String toString() {
         return "com.apssp.vendor.backend.VendorMaster[ vendorId=" + vendorId + " ]";
+    }
+
+    public VendorLogin getVendorLogin() {
+        return vendorLogin;
+    }
+
+    public void setVendorLogin(VendorLogin vendorLogin) {
+        this.vendorLogin = vendorLogin;
     }
     
 }

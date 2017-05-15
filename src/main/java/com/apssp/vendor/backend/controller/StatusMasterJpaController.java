@@ -5,7 +5,7 @@
  */
 package com.apssp.vendor.backend.controller;
 
-import com.apssp.vendor.backend.StatusMaster;
+import com.apssp.vendor.backend.entities.StatusMaster;
 import com.apssp.vendor.backend.controller.exceptions.NonexistentEntityException;
 import com.apssp.vendor.backend.controller.exceptions.PreexistingEntityException;
 import com.apssp.vendor.backend.controller.exceptions.RollbackFailureException;

@@ -5,13 +5,13 @@
  */
 package com.apssp.vendor.backend.controller;
 
-import com.apssp.vendor.backend.BillingDetail;
+import com.apssp.vendor.backend.entities.BillingDetail;
 import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import com.apssp.vendor.backend.BillingMaster;
+import com.apssp.vendor.backend.entities.BillingMaster;
 import com.apssp.vendor.backend.controller.exceptions.IllegalOrphanException;
 import com.apssp.vendor.backend.controller.exceptions.NonexistentEntityException;
 import com.apssp.vendor.backend.controller.exceptions.PreexistingEntityException;

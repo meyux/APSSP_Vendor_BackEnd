@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.apssp.vendor.backend;
+package com.apssp.vendor.backend.entities;
 
+import com.apssp.vendor.backend.entities.BillingStatus;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
