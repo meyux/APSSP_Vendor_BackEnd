@@ -14,27 +14,27 @@
             </f:facet>
         </h:head>
 
-        <h:body>
-
+        <h:body onload="#{billingMasterController.prepareCreate()}">
+        <!--<h:body>-->
             <p:layout fullPage="true">
-
                 <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
                     <h1>Vendor Billing Submission</h1>
-                                   <p:outputLabel for="loginId" />You are logged in as <p:spacer></p:spacer>
-                        <p:inputText id="loginId" value="#{vendorLoginController.selected.loginId}" title="Vendor Login ID" />
-
+                    <p:outputLabel value="You are logged in as" for="loginId" /> <p:spacer />
+                    <p:inputText id="loginId" value="#{vendorLoginController.selected.loginId}" title="Vendor Login ID" />
                 </p:layoutUnit>
                 <p:layoutUnit position="south" size="30" closable="true" collapsible="true">
                     Copyright
                 </p:layoutUnit>
                 <p:layoutUnit position="center">
-                Center
+                    <!-- vendor data -->
+                    <p:outputLabel value="Vendor" for="vendorDetails"/> <p:spacer/>
+                    <p:inputText id="vendorDetails" value="#{vendorLoginController.selected.vendorId}" />
+                    <p:inputText id="vendorDetails" value="#{vendorLoginController.vendorName}" />
+                    <p:outputLabel value="Reference ID" for="vendorDetails"/> <p:spacer/>
+                    <p:inputText id="vendorDetails" value="#{billingMasterController.genereratedRefID}" />
+                    
                 </p:layoutUnit>
             </p:layout>
         </h:body>
-
-
-
-
     </f:view>
 </html>

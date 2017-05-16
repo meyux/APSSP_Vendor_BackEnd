@@ -27,6 +27,17 @@ public class VendorLoginController implements Serializable {
     private com.apssp.vendor.backend.controller.session.VendorLoginFacade ejbFacade;
     private List<VendorLogin> items = null;
     private VendorLogin selected;
+    @EJB
+    private com.apssp.vendor.backend.controller.session.VendorMasterFacade vendorMasterFacade;
+    private String vendorName = null;
+
+    public String getVendorName() {
+        return vendorName;
+    }
+
+    public void setVendorName(String vendorName) {
+        this.vendorName = vendorName;
+    }
 
     public VendorLoginController() {
     }
@@ -132,6 +143,7 @@ public class VendorLoginController implements Serializable {
             for (VendorLogin vendor: vendors) {
                 if(loginId.equals(vendor.getLoginId()) && pass.equals(vendor.getPassword())) {
                     selected.setVendorId(vendor.getVendorId());
+                    setVendorName(vendorMasterFacade.find(vendor.getVendorId()).getVendorName());
                     return "/vendorSubmit";
                 }
             }

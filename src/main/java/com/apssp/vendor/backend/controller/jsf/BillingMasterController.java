@@ -27,6 +27,15 @@ public class BillingMasterController implements Serializable {
     private com.apssp.vendor.backend.controller.session.BillingMasterFacade ejbFacade;
     private List<BillingMaster> items = null;
     private BillingMaster selected;
+    private String genereratedRefID = null;
+
+    public String getGenereratedRefID() {
+        return genereratedRefID;
+    }
+
+    public void setGenereratedRefID(String genereratedRefID) {
+        this.genereratedRefID = genereratedRefID;
+    }
 
     public BillingMasterController() {
     }
@@ -43,8 +52,14 @@ public class BillingMasterController implements Serializable {
     }
 
     protected void initializeEmbeddableKey() {
+    if (genereratedRefID == null)
+        this.genereratedRefID = generateRefID();
     }
 
+    private String generateRefID(){
+        return "MMYYYY-00001";
+    }
+    
     private BillingMasterFacade getFacade() {
         return ejbFacade;
     }
