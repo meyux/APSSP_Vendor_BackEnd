@@ -14,13 +14,12 @@
             </f:facet>
         </h:head>
 
-        <h:body onload="#{billingMasterController.prepareCreate()}">
-            <!--<h:body>-->
+            <h:body>
             <p:layout fullPage="true">
                 <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
                     <h1>Vendor Billing Submission</h1>
                     <p:outputLabel value="You are logged in as" for="loginId" /> <p:spacer />
-                    <p:inputText id="loginId" value="#{vendorLoginController.vendorName}" title="Vendor Login ID" />
+                    <p:inputText id="loginId" value="#{vendorBillingSubmission.vendorName}" title="Vendor Login ID" />
                 </p:layoutUnit>
                 <p:layoutUnit position="south" size="30" closable="true" collapsible="true">
                     Copyright
@@ -28,35 +27,35 @@
                 <p:layoutUnit position="center">
                     <!-- vendor data -->
                     <p:outputLabel value="Vendor" for="vendorDetailsID"/> <p:spacer/>
-                    <p:inputText id="vendorDetailsID" value="#{vendorLoginController.selected.vendorId}" />
-                    <p:inputText id="vendorDetailsName" value="#{vendorLoginController.vendorName}" />
+                    <p:inputText id="vendorDetailsID" value="#{vendorBillingSubmission.vendorId}" />
+                    <p:inputText id="vendorDetailsName" value="#{vendorBillingSubmission.vendorName}" />
                     <p:outputLabel value="Reference ID" for="vendorDetailsName"/> <p:spacer/>
-                    <p:inputText id="vendorDetailsRefID" value="#{billingMasterController.genereratedRefID}" />
+                    <p:inputText id="vendorDetailsRefID" value="#{vendorBillingSubmission.genereratedRefID}" />
                     <br/>
                     <br/>
                     <!-- invoice data -->
                     <h3>SUBMIT <small>Document:</small></h3>
                     <p:outputLabel value="Invoice No." for="invoiceDetailsNo"/> <p:spacer/>
-                    <p:inputText id="invoiceDetailsNo" value="#{billingMasterController.invoiceNo}" />
+                    <p:inputText id="invoiceDetailsNo" value="#{vendorBillingSubmission.invoiceNo}" />
                     <p:outputLabel value="Date" for="invoiceDetailsDate"/> <p:spacer/>
-                    <p:calendar id="invoiceDetailsDate" value="#{billingMasterController.invoiceDate}" mode="popup" showOn="button" />
+                    <p:calendar id="invoiceDetailsDate" value="#{vendorBillingSubmission.invoiceDate}" mode="popup" showOn="button" />
                     <br/>
                     <br/>
                     <hr/>
                     <!-- document type data -->
                     <h3>Document Type:</h3>
-                    <p:selectOneMenu value="#{selectDocumentType.selectedDocumentType}">
-                        <f:selectItems value="#{selectDocumentType.options}" />
+                    <p:selectOneMenu value="#{vendorBillingSubmission.selectedDocumentType}">
+                        <f:selectItems value="#{vendorBillingSubmission.options}" />
                     </p:selectOneMenu>
                     <p:outputLabel value="No." for="selectedDocumentNo"/> <p:spacer/>
-                    <p:inputText id="selectedDocumentNo" value="#{selectDocumentType.documentSelectedNo}" />
+                    <p:inputText id="selectedDocumentNo" value="#{vendorBillingSubmission.documentSelectedNo}" />
                     <p:outputLabel value="Page" for="selectedDocumentPage"/> <p:spacer/>
-                    <p:inputText id="selectedDocumentPage" value="#{selectDocumentType.documentSelectedPage}" />
+                    <p:inputText id="selectedDocumentPage" value="#{vendorBillingSubmission.documentSelectedPage}" />
                     <p:outputLabel value="Date" for="selectedDocumentDate"/> <p:spacer/>
-                    <p:calendar id="selectedDocumentDate" value="#{selectDocumentType.documentSelectedDate}" mode="popup" showOn="button" />
+                    <p:calendar id="selectedDocumentDate" value="#{vendorBillingSubmission.documentSelectedDate}" mode="popup" showOn="button" />
                     <br/>
                     <h:form>    
-                        <p:photoCam widgetVar="pc" listener="#{selectDocumentType.oncapture}"  />                        
+                        <p:photoCam widgetVar="pc" listener="#{vendorBillingSubmission.oncapture}"  />                        
                         <p:commandButton type="button" value="Take Photo" onclick="PF('pc').capture()" /> 
                     </h:form>
 
