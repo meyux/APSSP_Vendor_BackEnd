@@ -20,6 +20,9 @@
 
                 <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
                     <h1>Vendor Billing Submission</h1>
+                                   <p:outputLabel for="loginId" />You are logged in as <p:spacer></p:spacer>
+                        <p:inputText id="loginId" value="#{vendorLoginController.selected.loginId}" title="Vendor Login ID" />
+
                 </p:layoutUnit>
                 <p:layoutUnit position="south" size="30" closable="true" collapsible="true">
                     Copyright
