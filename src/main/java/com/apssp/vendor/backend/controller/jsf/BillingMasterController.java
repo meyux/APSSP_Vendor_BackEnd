@@ -6,6 +6,9 @@ import com.apssp.vendor.backend.controller.jsf.util.JsfUtil.PersistAction;
 import com.apssp.vendor.backend.controller.session.BillingMasterFacade;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -52,14 +55,15 @@ public class BillingMasterController implements Serializable {
     }
 
     protected void initializeEmbeddableKey() {
-    if (genereratedRefID == null)
-        this.genereratedRefID = generateRefID();
+        if (genereratedRefID == null) {
+            this.genereratedRefID = generateRefID();
+        }
     }
 
-    private String generateRefID(){
-        return "MMYYYY-00001";
+    private String generateRefID() {
+        return getMonthYear() + "-" + getSeriesNumber();
     }
-    
+
     private BillingMasterFacade getFacade() {
         return ejbFacade;
     }
@@ -134,6 +138,24 @@ public class BillingMasterController implements Serializable {
 
     public List<BillingMaster> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    private String getMonthYear() {
+        DateFormat formatter = new SimpleDateFormat("MMyyyy");
+        Date date = new Date();
+        return formatter.format(date);
+    }
+
+    private String getSeriesNumber() {
+        List<BillingMaster> billingMasters = getFacade().findAll();
+        Integer iseries = new Integer("00000");
+        iseries++;
+        if (!billingMasters.isEmpty()) {
+            String refID = billingMasters.get(billingMasters.size() - 1).getRefId();
+            iseries = Integer.parseInt(refID.substring(refID.lastIndexOf("-") + 1));
+            iseries++;
+        }
+        return String.format("%05d", iseries);
     }
 
     @FacesConverter(forClass = BillingMaster.class)
