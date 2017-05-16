@@ -133,7 +133,6 @@ public class VendorLoginController implements Serializable {
                 if(loginId.equals(vendor.getLoginId()) && pass.equals(vendor.getPassword())) {
                     selected.setVendorId(vendor.getVendorId());
                     return "/vendorSubmit";
-                } else {
                 }
             }
         }
