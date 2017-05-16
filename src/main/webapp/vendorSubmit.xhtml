@@ -15,24 +15,37 @@
         </h:head>
 
         <h:body onload="#{billingMasterController.prepareCreate()}">
-        <!--<h:body>-->
+            <!--<h:body>-->
             <p:layout fullPage="true">
                 <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
                     <h1>Vendor Billing Submission</h1>
                     <p:outputLabel value="You are logged in as" for="loginId" /> <p:spacer />
-                    <p:inputText id="loginId" value="#{vendorLoginController.selected.loginId}" title="Vendor Login ID" />
+                    <p:inputText id="loginId" value="#{vendorLoginController.vendorName}" title="Vendor Login ID" />
                 </p:layoutUnit>
                 <p:layoutUnit position="south" size="30" closable="true" collapsible="true">
                     Copyright
                 </p:layoutUnit>
                 <p:layoutUnit position="center">
                     <!-- vendor data -->
-                    <p:outputLabel value="Vendor" for="vendorDetails"/> <p:spacer/>
-                    <p:inputText id="vendorDetails" value="#{vendorLoginController.selected.vendorId}" />
-                    <p:inputText id="vendorDetails" value="#{vendorLoginController.vendorName}" />
-                    <p:outputLabel value="Reference ID" for="vendorDetails"/> <p:spacer/>
-                    <p:inputText id="vendorDetails" value="#{billingMasterController.genereratedRefID}" />
-                    
+                    <p:outputLabel value="Vendor" for="vendorDetailsID"/> <p:spacer/>
+                    <p:inputText id="vendorDetailsID" value="#{vendorLoginController.selected.vendorId}" />
+                    <p:inputText id="vendorDetailsName" value="#{vendorLoginController.vendorName}" />
+                    <p:outputLabel value="Reference ID" for="vendorDetailsName"/> <p:spacer/>
+                    <p:inputText id="vendorDetailsRefID" value="#{billingMasterController.genereratedRefID}" />
+                    <br/>
+                    <br/>
+                    <!-- invoice data -->
+                    <h3>SUBMIT <small>Document:</small></h3>
+                    <p:outputLabel value="Invoice No." for="invoiceDetailsNo"/> <p:spacer/>
+                    <p:inputText id="invoiceDetailsNo" value="#{billingMasterController.invoiceNo}" />
+                    <p:outputLabel value="Date" for="invoiceDetailsDate"/> <p:spacer/>
+                    <p:calendar id="invoiceDetailsDate" value="#{billingMasterController.invoiceDate}" mode="popup" showOn="button" />
+                    <br/>
+                    <br/>
+                    <hr/>
+                    <!-- document type data -->
+                    <h3>Document Type:</h3>
+
                 </p:layoutUnit>
             </p:layout>
         </h:body>

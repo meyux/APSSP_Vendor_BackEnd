@@ -31,7 +31,25 @@ public class BillingMasterController implements Serializable {
     private List<BillingMaster> items = null;
     private BillingMaster selected;
     private String genereratedRefID = null;
+    private String invoiceNo = null;
+    private Date invoiceDate = new Date();
 
+    public String getInvoiceNo() {
+        return invoiceNo;
+    }
+
+    public void setInvoiceNo(String invoiceNo) {
+        this.invoiceNo = invoiceNo;
+    }
+
+    public Date getInvoiceDate() {
+        return invoiceDate;
+    }
+
+    public void setInvoiceDate(Date invoiceDate) {
+        this.invoiceDate = invoiceDate;
+    }
+    
     public String getGenereratedRefID() {
         return genereratedRefID;
     }
