@@ -6,6 +6,7 @@
 package com.apssp.vendor.backend.controller.jsf;
 
 import com.apssp.vendor.backend.entities.BillingMaster;
+import com.apssp.vendor.backend.entities.DocumentDetail;
 import com.apssp.vendor.backend.entities.VendorLogin;
 import java.io.File;
 import javax.inject.Named;
@@ -18,11 +19,7 @@ import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.FacesException;
-import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
-import javax.imageio.stream.FileImageOutputStream;
-import javax.servlet.ServletContext;
 import org.primefaces.event.CaptureEvent;
 
 /**
@@ -39,6 +36,8 @@ public class VendorBillingSubmission implements Serializable {
     private com.apssp.vendor.backend.controller.session.VendorLoginFacade ejbVendorLoginFacade;
     @EJB
     private com.apssp.vendor.backend.controller.session.VendorMasterFacade vendorMasterFacade;
+    @EJB
+    private com.apssp.vendor.backend.controller.session.DocumentDetailFacade ejbDocumentDetailFacade;
 
     private List<SelectItem> options = new ArrayList<SelectItem>();
     private String selectedDocumentType = "";
@@ -209,15 +208,10 @@ public class VendorBillingSubmission implements Serializable {
 
     public void oncapture(CaptureEvent captureEvent) {
         byte[] data = captureEvent.getData();
-        ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-        String newFileName = servletContext.getRealPath("") + File.separator + "photocam" + File.separator + "captured.png";
-        FileImageOutputStream imageOutput;
-        try {
-            imageOutput = new FileImageOutputStream(new File(newFileName));
-            imageOutput.write(data, 0, data.length);
-            imageOutput.close();
-        } catch (Exception e) {
-            throw new FacesException("Error in writing captured image.");
-        }
+        DocumentDetail document = new DocumentDetail();
+        document.setDocImage(data);
+        document.setDocNo("sample doc");
+        document.setDocPage(this.getDocumentSelectedPage());
+        ejbDocumentDetailFacade.create(document);
     }
 }
