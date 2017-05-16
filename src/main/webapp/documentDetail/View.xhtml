@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DocumentDetailViewDlg" widgetVar="DocumentDetailViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewDocumentDetailTitle}">
+            <h:form id="DocumentDetailViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{documentDetailController.selected != null}">
+                        <h:outputText value="#{bundle.ViewDocumentDetailLabel_documentId}"/>
+                        <h:outputText value="#{documentDetailController.selected.documentId}" title="#{bundle.ViewDocumentDetailTitle_documentId}"/>
+                        <h:outputText value="#{bundle.ViewDocumentDetailLabel_docNo}"/>
+                        <h:outputText value="#{documentDetailController.selected.docNo}" title="#{bundle.ViewDocumentDetailTitle_docNo}"/>
+                        <h:outputText value="#{bundle.ViewDocumentDetailLabel_docPage}"/>
+                        <h:outputText value="#{documentDetailController.selected.docPage}" title="#{bundle.ViewDocumentDetailTitle_docPage}"/>
+                        <h:outputText value="#{bundle.ViewDocumentDetailLabel_docImage}"/>
+                        <h:outputText value="#{documentDetailController.selected.docImage}" title="#{bundle.ViewDocumentDetailTitle_docImage}"/>
+                        <h:outputText value="#{bundle.ViewDocumentDetailLabel_refId}"/>
+                        <h:outputText value="#{documentDetailController.selected.refId}" title="#{bundle.ViewDocumentDetailTitle_refId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="DocumentDetailViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

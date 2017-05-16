@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DocumentDetailEditDlg" widgetVar="DocumentDetailEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditDocumentDetailTitle}">
+            <h:form id="DocumentDetailEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{documentDetailController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditDocumentDetailLabel_documentId}" for="documentId" />
+                        <p:inputText id="documentId" value="#{documentDetailController.selected.documentId}" title="#{bundle.EditDocumentDetailTitle_documentId}" required="true" requiredMessage="#{bundle.EditDocumentDetailRequiredMessage_documentId}"/>
+                        <p:outputLabel value="#{bundle.EditDocumentDetailLabel_docNo}" for="docNo" />
+                        <p:inputText id="docNo" value="#{documentDetailController.selected.docNo}" title="#{bundle.EditDocumentDetailTitle_docNo}" />
+                        <p:outputLabel value="#{bundle.EditDocumentDetailLabel_docPage}" for="docPage" />
+                        <p:inputText id="docPage" value="#{documentDetailController.selected.docPage}" title="#{bundle.EditDocumentDetailTitle_docPage}" />
+                        <p:outputLabel value="#{bundle.EditDocumentDetailLabel_docImage}" for="docImage" />
+                        <p:inputTextarea rows="4" cols="30" id="docImage" value="#{documentDetailController.selected.docImage}" title="#{bundle.EditDocumentDetailTitle_docImage}" />
+                        <p:outputLabel value="#{bundle.EditDocumentDetailLabel_refId}" for="refId" />
+                        <p:selectOneMenu id="refId" value="#{documentDetailController.selected.refId}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{billingMasterController.itemsAvailableSelectOne}"
+                                           var="refIdItem"
+                                           itemValue="#{refIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{documentDetailController.update}" value="#{bundle.Save}" update="display,:DocumentDetailListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DocumentDetailEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DocumentDetailEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
