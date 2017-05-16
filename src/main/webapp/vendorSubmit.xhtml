@@ -45,6 +45,21 @@
                     <hr/>
                     <!-- document type data -->
                     <h3>Document Type:</h3>
+                    <p:selectOneMenu value="#{selectDocumentType.selectedDocumentType}">
+                        <f:selectItems value="#{selectDocumentType.options}" />
+                    </p:selectOneMenu>
+                    <p:outputLabel value="No." for="selectedDocumentNo"/> <p:spacer/>
+                    <p:inputText id="selectedDocumentNo" value="#{selectDocumentType.documentSelectedNo}" />
+                    <p:outputLabel value="Page" for="selectedDocumentPage"/> <p:spacer/>
+                    <p:inputText id="selectedDocumentPage" value="#{selectDocumentType.documentSelectedPage}" />
+                    <p:outputLabel value="Date" for="selectedDocumentDate"/> <p:spacer/>
+                    <p:calendar id="selectedDocumentDate" value="#{selectDocumentType.documentSelectedDate}" mode="popup" showOn="button" />
+                    <br/>
+                    <h:form>    
+                        <p:photoCam widgetVar="pc" listener="#{selectDocumentType.oncapture}"  />                        
+                        <p:commandButton type="button" value="Take Photo" onclick="PF('pc').capture()" /> 
+                    </h:form>
+
 
                 </p:layoutUnit>
             </p:layout>
