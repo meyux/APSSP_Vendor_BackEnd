@@ -6,9 +6,6 @@ import com.apssp.vendor.backend.controller.jsf.util.JsfUtil.PersistAction;
 import com.apssp.vendor.backend.controller.session.BillingMasterFacade;
 
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -22,41 +19,15 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+
 @Named("billingMasterController")
 @SessionScoped
 public class BillingMasterController implements Serializable {
 
-    @EJB
-    private com.apssp.vendor.backend.controller.session.BillingMasterFacade ejbFacade;
+
+    @EJB private com.apssp.vendor.backend.controller.session.BillingMasterFacade ejbFacade;
     private List<BillingMaster> items = null;
     private BillingMaster selected;
-    private String genereratedRefID = null;
-    private String invoiceNo = null;
-    private Date invoiceDate = new Date();
-
-    public String getInvoiceNo() {
-        return invoiceNo;
-    }
-
-    public void setInvoiceNo(String invoiceNo) {
-        this.invoiceNo = invoiceNo;
-    }
-
-    public Date getInvoiceDate() {
-        return invoiceDate;
-    }
-
-    public void setInvoiceDate(Date invoiceDate) {
-        this.invoiceDate = invoiceDate;
-    }
-    
-    public String getGenereratedRefID() {
-        return genereratedRefID;
-    }
-
-    public void setGenereratedRefID(String genereratedRefID) {
-        this.genereratedRefID = genereratedRefID;
-    }
 
     public BillingMasterController() {
     }
@@ -73,13 +44,6 @@ public class BillingMasterController implements Serializable {
     }
 
     protected void initializeEmbeddableKey() {
-        if (genereratedRefID == null) {
-            this.genereratedRefID = generateRefID();
-        }
-    }
-
-    private String generateRefID() {
-        return getMonthYear() + "-" + getSeriesNumber();
     }
 
     private BillingMasterFacade getFacade() {
@@ -158,25 +122,7 @@ public class BillingMasterController implements Serializable {
         return getFacade().findAll();
     }
 
-    private String getMonthYear() {
-        DateFormat formatter = new SimpleDateFormat("MMyyyy");
-        Date date = new Date();
-        return formatter.format(date);
-    }
-
-    private String getSeriesNumber() {
-        List<BillingMaster> billingMasters = getFacade().findAll();
-        Integer iseries = new Integer("00000");
-        iseries++;
-        if (!billingMasters.isEmpty()) {
-            String refID = billingMasters.get(billingMasters.size() - 1).getRefId();
-            iseries = Integer.parseInt(refID.substring(refID.lastIndexOf("-") + 1));
-            iseries++;
-        }
-        return String.format("%05d", iseries);
-    }
-
-    @FacesConverter(forClass = BillingMaster.class)
+    @FacesConverter(forClass=BillingMaster.class)
     public static class BillingMasterControllerConverter implements Converter {
 
         @Override
@@ -184,7 +130,7 @@ public class BillingMasterController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            BillingMasterController controller = (BillingMasterController) facesContext.getApplication().getELResolver().
+            BillingMasterController controller = (BillingMasterController)facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "billingMasterController");
             return controller.getBillingMaster(getKey(value));
         }
