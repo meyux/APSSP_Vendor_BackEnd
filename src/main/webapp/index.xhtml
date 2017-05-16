@@ -14,8 +14,8 @@
             </f:facet>
         </h:head>
 
-        <h:body onload="#{vendorLoginController.prepareCreate()}">
-        <!--<h:body>-->
+<!--        <h:body onload="#{vendorLoginController.prepareCreate()}">-->
+            <h:body>
 
             <p:layout fullPage="true">
 
@@ -28,18 +28,18 @@
                 <p:layoutUnit position="center">
                     <h:form id="LoginForm">
                         <p:outputLabel value="Login ID" for="loginId" /> <p:spacer></p:spacer>
-                        <p:inputText id="loginId" value="#{vendorLoginController.selected.loginId}" title="Vendor Login ID" />
+                        <p:inputText id="loginId" value="#{vendorBillingSubmission.loginId}" title="Vendor Login ID" />
                         <p:spacer></p:spacer>
                         <p:outputLabel value="Password" for="password" /> <p:spacer></p:spacer>
-                        <p:password id="password" value="#{vendorLoginController.selected.password}" title="Vendor Login Password" />
+                        <p:password id="password" value="#{vendorBillingSubmission.password}" title="Vendor Login Password" />
                         <br/>
-                        <p:commandButton action="#{vendorLoginController.checkLogin()}" value="Login" update="LoginForm" />
+                        <p:commandButton action="#{vendorBillingSubmission.checkLogin()}" value="Login" update="LoginForm" />
                     </h:form>
                     <br />
                     <br />
                     <br />
                     <br />
-                    <h:link outcome="/vendorLogin/List" value="Show All VendorLogin Items"/>
+                    <!--<h:link outcome="/vendorLogin/List" value="Show All VendorLogin Items"/>-->
                     <br />
                     <!--<h:link outcome="/vendorMaster/List" value="Show All VendorMaster Items"/>-->
                     <br />
@@ -50,9 +50,15 @@
                     <!--<h:link outcome="/billingStatus/List" value="Show All BillingStatus Items"/>-->
                     <br />
                     <!--<h:link outcome="/statusMaster/List" value="Show All StatusMaster Items"/>-->
+                    <br />
+                    <!--<h:link outcome="/documentDetail/List" value="Show All DocumentDetail Items"/>-->
                 </p:layoutUnit>
             </p:layout>
         </h:body>
+
+
+
+
 
 
 
