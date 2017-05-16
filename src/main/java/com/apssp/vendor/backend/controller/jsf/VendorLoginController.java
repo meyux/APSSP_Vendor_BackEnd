@@ -27,17 +27,6 @@ public class VendorLoginController implements Serializable {
     private com.apssp.vendor.backend.controller.session.VendorLoginFacade ejbFacade;
     private List<VendorLogin> items = null;
     private VendorLogin selected;
-    @EJB
-    private com.apssp.vendor.backend.controller.session.VendorMasterFacade vendorMasterFacade;
-    private String vendorName = null;
-
-    public String getVendorName() {
-        return vendorName;
-    }
-
-    public void setVendorName(String vendorName) {
-        this.vendorName = vendorName;
-    }
 
     public VendorLoginController() {
     }
@@ -132,25 +121,6 @@ public class VendorLoginController implements Serializable {
         return getFacade().findAll();
     }
 
-    public String checkLogin() {
-        String loginId = selected.getLoginId();
-        String pass = selected.getPassword();
-        List<VendorLogin> vendors = getItems();
-        
-        if(loginId == null || pass == null)
-            return "/index";
-        if(!vendors.isEmpty()) {
-            for (VendorLogin vendor: vendors) {
-                if(loginId.equals(vendor.getLoginId()) && pass.equals(vendor.getPassword())) {
-                    selected.setVendorId(vendor.getVendorId());
-                    setVendorName(vendorMasterFacade.find(vendor.getVendorId()).getVendorName());
-                    return "/vendorSubmit";
-                }
-            }
-        }
-        return "/index";
-    }
-    
     @FacesConverter(forClass = VendorLogin.class)
     public static class VendorLoginControllerConverter implements Converter {
 
