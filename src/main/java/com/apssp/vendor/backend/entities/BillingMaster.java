@@ -7,6 +7,7 @@ package com.apssp.vendor.backend.entities;
 
 import com.apssp.vendor.backend.entities.BillingStatus;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -15,6 +16,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -22,6 +24,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -39,6 +42,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "BillingMaster.findByInvoiceDate", query = "SELECT b FROM BillingMaster b WHERE b.invoiceDate = :invoiceDate")
     , @NamedQuery(name = "BillingMaster.findByInvoiceAmount", query = "SELECT b FROM BillingMaster b WHERE b.invoiceAmount = :invoiceAmount")})
 public class BillingMaster implements Serializable {
+
+    @OneToMany(mappedBy = "refId")
+    private Collection<DocumentDetail> documentDetailCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -159,6 +165,15 @@ public class BillingMaster implements Serializable {
     @Override
     public String toString() {
         return "com.apssp.vendor.backend.BillingMaster[ refId=" + refId + " ]";
+    }
+
+    @XmlTransient
+    public Collection<DocumentDetail> getDocumentDetailCollection() {
+        return documentDetailCollection;
+    }
+
+    public void setDocumentDetailCollection(Collection<DocumentDetail> documentDetailCollection) {
+        this.documentDetailCollection = documentDetailCollection;
     }
     
 }
