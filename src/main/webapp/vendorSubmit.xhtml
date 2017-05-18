@@ -14,7 +14,7 @@
             </f:facet>
         </h:head>
 
-            <h:body>
+        <h:body>
             <p:layout fullPage="true">
                 <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
                     <h1>Vendor Billing Submission</h1>
@@ -34,6 +34,7 @@
                     <br/>
                     <br/>
                     <!-- invoice data -->
+                    <p:focus for="invoiceDetailsNo" />
                     <h3>SUBMIT <small>Document:</small></h3>
                     <p:outputLabel value="Invoice No." for="invoiceDetailsNo"/> <p:spacer/>
                     <p:inputText id="invoiceDetailsNo" value="#{vendorBillingSubmission.invoiceNo}" />
@@ -44,19 +45,22 @@
                     <hr/>
                     <!-- document type data -->
                     <h3>Document Type:</h3>
-                    <p:selectOneMenu value="#{vendorBillingSubmission.selectedDocumentType}">
+                    <p:selectOneMenu value="#{vendorBillingSubmission.selectedDocumentType}" >
                         <f:selectItems value="#{vendorBillingSubmission.options}" />
                     </p:selectOneMenu>
-                    <p:outputLabel value="No." for="selectedDocumentNo"/> <p:spacer/>
-                    <p:inputText id="selectedDocumentNo" value="#{vendorBillingSubmission.documentSelectedNo}" />
-                    <p:outputLabel value="Page" for="selectedDocumentPage"/> <p:spacer/>
-                    <p:inputText id="selectedDocumentPage" value="#{vendorBillingSubmission.documentSelectedPage}" />
-                    <p:outputLabel value="Date" for="selectedDocumentDate"/> <p:spacer/>
+                    <p:outputLabel value="No." for="selectedDocumentNo" rendered="#{vendorBillingSubmission.isRenderSelectedNo}"/> 
+                    <p:inputText id="selectedDocumentNo" value="#{vendorBillingSubmission.documentSelectedNo}" rendered="#{vendorBillingSubmission.isRenderSelectedNo}"/>
+                    <p:outputLabel value="Page" /> 
+                    <p:spinner value="#{vendorBillingSubmission.documentSelectedPage}" min="1" max="100" immediate="true">
+                        <p:ajax />
+                    </p:spinner>
+                    <p:outputLabel value="Date" for="selectedDocumentDate"/> 
                     <p:calendar id="selectedDocumentDate" value="#{vendorBillingSubmission.documentSelectedDate}" mode="popup" showOn="button" />
                     <br/>
-                    <h:form>    
+                    <h:form >    
                         <p:photoCam widgetVar="pc" listener="#{vendorBillingSubmission.oncapture}"  />                        
                         <p:commandButton type="button" value="Take Photo" onclick="PF('pc').capture()" /> 
+                        <p:commandButton value="Submit"  actionListener="#{vendorBillingSubmission.onSubmitDocument}" /> 
                     </h:form>
 
 

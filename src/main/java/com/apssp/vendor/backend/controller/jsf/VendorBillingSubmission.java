@@ -7,8 +7,6 @@ package com.apssp.vendor.backend.controller.jsf;
 
 import com.apssp.vendor.backend.entities.BillingMaster;
 import com.apssp.vendor.backend.entities.DocumentDetail;
-import com.apssp.vendor.backend.entities.VendorLogin;
-import java.io.File;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -19,7 +17,9 @@ import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
+import javax.validation.constraints.NotNull;
 import org.primefaces.event.CaptureEvent;
 
 /**
@@ -42,10 +42,13 @@ public class VendorBillingSubmission implements Serializable {
     private List<SelectItem> options = new ArrayList<SelectItem>();
     private String selectedDocumentType = "";
     private String documentSelectedNo = "";
+    private boolean isRenderSelectedNo = true;
+
     private int documentSelectedPage = 1;
     private Date documentSelectedDate = new Date();
 
     private String genereratedRefID = "";
+    @NotNull
     private String invoiceNo = "";
     private Date invoiceDate = new Date();
 
@@ -53,6 +56,19 @@ public class VendorBillingSubmission implements Serializable {
     private String password = "";
     private String vendorName = "";
     private int vendorId;
+
+    private ArrayList<DocumentDetail> docCapturedList = new ArrayList<>();
+    private int countPhotoClick = 0;
+
+    private BillingMaster billingMasterData = new BillingMaster();
+
+    public boolean isIsRenderSelectedNo() {
+        return isRenderSelectedNo;
+    }
+
+    public void setIsRenderSelectedNo(boolean isRenderSelectedNo) {
+        this.isRenderSelectedNo = isRenderSelectedNo;
+    }
 
     public String getVendorName() {
         return vendorName;
@@ -186,32 +202,59 @@ public class VendorBillingSubmission implements Serializable {
     @PostConstruct
     public void init() {
         this.genereratedRefID = generateRefID();
+        this.billingMasterData.setRefId(this.genereratedRefID);
     }
 
     public String checkLogin() {
-        if (this.getLoginId().isEmpty() || this.getPassword().isEmpty()) {
-            return "/index";
-        }
-
-        List<VendorLogin> vendors = ejbVendorLoginFacade.findAll();
-        if (!vendors.isEmpty()) {
-            for (VendorLogin vendor : vendors) {
-                if (this.getLoginId().equals(vendor.getLoginId()) && this.getPassword().equals(vendor.getPassword())) {
-                    setVendorId(vendor.getVendorId());
-                    setVendorName(vendorMasterFacade.find(vendor.getVendorId()).getVendorName());
-                    return "/vendorSubmit";
-                }
-            }
-        }
-        return "/index";
+        return testVendoSubmitPage();
+//        if (this.getLoginId().isEmpty() || this.getPassword().isEmpty()) {
+//            return "/index";
+//        }
+//
+//        List<VendorLogin> vendors = ejbVendorLoginFacade.findAll();
+//        if (!vendors.isEmpty()) {
+//            for (VendorLogin vendor : vendors) {
+//                if (this.getLoginId().equals(vendor.getLoginId()) && this.getPassword().equals(vendor.getPassword())) {
+//                    setVendorId(vendor.getVendorId());
+//                    setVendorName(vendorMasterFacade.find(vendor.getVendorId()).getVendorName());
+//                    return "/vendorSubmit";
+//                }
+//            }
+//        }
+//        return "/index";
     }
 
     public void oncapture(CaptureEvent captureEvent) {
+        this.countPhotoClick++;
         byte[] data = captureEvent.getData();
         DocumentDetail document = new DocumentDetail();
         document.setDocImage(data);
-        document.setDocNo("sample doc");
-        document.setDocPage(this.getDocumentSelectedPage());
-        ejbDocumentDetailFacade.create(document);
+        document.setDocNo(this.genereratedRefID);
+        document.setDocPage(this.countPhotoClick);
+        docCapturedList.add(document);
+    }
+
+    public void onChangeDocumentType(ValueChangeEvent e) {
+        //get selected type
+        this.selectedDocumentType = "test";
+        setIsRenderSelectedNo(true);
+    }
+
+    public void onSubmitDocument() {
+        if (!docCapturedList.isEmpty()) {
+            this.billingMasterData.setInvoiceDate(this.getInvoiceDate());
+            this.billingMasterData.setInvoiceNo(this.getInvoiceNo());
+            this.billingMasterData.setVendorId(this.getVendorId());
+            ejbBillingMasterFacade.create(billingMasterData);
+            for (DocumentDetail doc : docCapturedList) {
+                ejbDocumentDetailFacade.create(doc);
+            }
+        }
+    }
+
+    private String testVendoSubmitPage() {
+        setVendorId(3);
+        setVendorName("testing");
+        return "/vendorSubmit";
     }
 }
