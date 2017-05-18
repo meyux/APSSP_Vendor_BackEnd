@@ -19,7 +19,7 @@
                 <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
                     <h1>Vendor Billing Submission</h1>
                     <p:outputLabel value="You are logged in as" for="loginId" /> <p:spacer />
-                    <p:inputText id="loginId" value="#{vendorBillingSubmission.vendorName}" title="Vendor Login ID" />
+                    <p:inputText id="loginId" value="#{vendorBillingSubmission.vendorName}" readonly="true"/>
                 </p:layoutUnit>
                 <p:layoutUnit position="south" size="30" closable="true" collapsible="true">
                     Copyright
@@ -27,37 +27,46 @@
                 <p:layoutUnit position="center">
                     <!-- vendor data -->
                     <p:outputLabel value="Vendor" for="vendorDetailsID"/> <p:spacer/>
-                    <p:inputText id="vendorDetailsID" value="#{vendorBillingSubmission.vendorId}" />
-                    <p:inputText id="vendorDetailsName" value="#{vendorBillingSubmission.vendorName}" />
+                    <p:inputText id="vendorDetailsID" value="#{vendorBillingSubmission.vendorId}" readonly="true"/>
+                    <p:inputText id="vendorDetailsName" value="#{vendorBillingSubmission.vendorName}" readonly="true"/>
                     <p:outputLabel value="Reference ID" for="vendorDetailsName"/> <p:spacer/>
-                    <p:inputText id="vendorDetailsRefID" value="#{vendorBillingSubmission.genereratedRefID}" />
+                    <p:inputText id="vendorDetailsRefID" value="#{vendorBillingSubmission.genereratedRefID}" readonly="true"/>
                     <br/>
                     <br/>
                     <!-- invoice data -->
+                    <h:form >    
                     <p:focus for="invoiceDetailsNo" />
                     <h3>SUBMIT <small>Document:</small></h3>
                     <p:outputLabel value="Invoice No." for="invoiceDetailsNo"/> <p:spacer/>
-                    <p:inputText id="invoiceDetailsNo" value="#{vendorBillingSubmission.invoiceNo}" />
+                    <p:inputText id="invoiceDetailsNo" value="#{vendorBillingSubmission.invoiceNo}" immediate="true">
+                        <p:ajax />
+                    </p:inputText>
                     <p:outputLabel value="Date" for="invoiceDetailsDate"/> <p:spacer/>
-                    <p:calendar id="invoiceDetailsDate" value="#{vendorBillingSubmission.invoiceDate}" mode="popup" showOn="button" />
+                    <p:calendar id="invoiceDetailsDate" value="#{vendorBillingSubmission.invoiceDate}" mode="popup" showOn="button" immediate="true">
+                        <p:ajax update="invoiceDetailsDate"/>
+                    </p:calendar>
                     <br/>
                     <br/>
                     <hr/>
                     <!-- document type data -->
                     <h3>Document Type:</h3>
-                    <p:selectOneMenu value="#{vendorBillingSubmission.selectedDocumentType}" >
+                    <p:selectOneMenu value="#{vendorBillingSubmission.selectedDocumentType}" immediate="true">
                         <f:selectItems value="#{vendorBillingSubmission.options}" />
-                    </p:selectOneMenu>
-                    <p:outputLabel value="No." for="selectedDocumentNo" rendered="#{vendorBillingSubmission.isRenderSelectedNo}"/> 
-                    <p:inputText id="selectedDocumentNo" value="#{vendorBillingSubmission.documentSelectedNo}" rendered="#{vendorBillingSubmission.isRenderSelectedNo}"/>
-                    <p:outputLabel value="Page" /> 
-                    <p:spinner value="#{vendorBillingSubmission.documentSelectedPage}" min="1" max="100" immediate="true">
                         <p:ajax />
-                    </p:spinner>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="No." for="selectedDocumentNo" rendered="#{vendorBillingSubmission.isRenderSelectedNo}" /> 
+                    <p:inputText id="selectedDocumentNo" value="#{vendorBillingSubmission.documentSelectedNo}" rendered="#{vendorBillingSubmission.isRenderSelectedNo}" immediate="true">
+                        <p:ajax update="selectedDocumentNo"/>
+                    </p:inputText>
+                    <!--                    <p:outputLabel value="Page" /> 
+                                        <p:spinner value="#{vendorBillingSubmission.documentSelectedPage}" min="1" max="100" immediate="true">
+                                            <p:ajax />
+                                        </p:spinner>-->
                     <p:outputLabel value="Date" for="selectedDocumentDate"/> 
-                    <p:calendar id="selectedDocumentDate" value="#{vendorBillingSubmission.documentSelectedDate}" mode="popup" showOn="button" />
+                    <p:calendar id="selectedDocumentDate" value="#{vendorBillingSubmission.documentSelectedDate}" mode="popup" showOn="button" immediate="true">
+                        <p:ajax update="selectedDocumentDate"/>
+                    </p:calendar>
                     <br/>
-                    <h:form >    
                         <p:photoCam widgetVar="pc" listener="#{vendorBillingSubmission.oncapture}"  />                        
                         <p:commandButton type="button" value="Take Photo" onclick="PF('pc').capture()" /> 
                         <p:commandButton value="Submit"  actionListener="#{vendorBillingSubmission.onSubmitDocument}" /> 

@@ -5,6 +5,7 @@
  */
 package com.apssp.vendor.backend.controller.jsf;
 
+import com.apssp.vendor.backend.entities.BillingDetail;
 import com.apssp.vendor.backend.entities.BillingMaster;
 import com.apssp.vendor.backend.entities.DocumentDetail;
 import javax.inject.Named;
@@ -33,6 +34,8 @@ public class VendorBillingSubmission implements Serializable {
     @EJB
     private com.apssp.vendor.backend.controller.session.BillingMasterFacade ejbBillingMasterFacade;
     @EJB
+    private com.apssp.vendor.backend.controller.session.BillingDetailFacade ejbBillingDetailFacade;    
+    @EJB
     private com.apssp.vendor.backend.controller.session.VendorLoginFacade ejbVendorLoginFacade;
     @EJB
     private com.apssp.vendor.backend.controller.session.VendorMasterFacade vendorMasterFacade;
@@ -57,10 +60,11 @@ public class VendorBillingSubmission implements Serializable {
     private String vendorName = "";
     private int vendorId;
 
-    private ArrayList<DocumentDetail> docCapturedList = new ArrayList<>();
+    private ArrayList<DocumentDetail> docCapturedList = null;
     private int countPhotoClick = 0;
 
-    private BillingMaster billingMasterData = new BillingMaster();
+    private BillingMaster billingMasterData = null;
+    private BillingDetail billingDetailData = null;
 
     public boolean isIsRenderSelectedNo() {
         return isRenderSelectedNo;
@@ -192,6 +196,10 @@ public class VendorBillingSubmission implements Serializable {
      * Creates a new instance of SelectDocumentType
      */
     public VendorBillingSubmission() {
+        addItemsToSelectMenu();
+    }
+
+    private void addItemsToSelectMenu() {
         this.options.add(new SelectItem(1, "Invoice"));
         this.options.add(new SelectItem(2, "Delivery Receipt"));
         this.options.add(new SelectItem(3, "Statement of Account"));
@@ -201,8 +209,21 @@ public class VendorBillingSubmission implements Serializable {
 
     @PostConstruct
     public void init() {
-        this.genereratedRefID = generateRefID();
-        this.billingMasterData.setRefId(this.genereratedRefID);
+        reset();
+    }
+
+    public void reset() {
+        docCapturedList = new ArrayList<>();
+        countPhotoClick = 0;
+        billingMasterData = new BillingMaster();
+        billingDetailData = new BillingDetail();
+        setGenereratedRefID(generateRefID());
+        billingMasterData.setRefId(getGenereratedRefID());
+        billingDetailData.setRefId(getGenereratedRefID());
+        billingDetailData.setBillingMaster(billingMasterData);
+        setInvoiceNo("");
+        setInvoiceDate(new Date());
+        setSelectedDocumentType("");
     }
 
     public String checkLogin() {
@@ -225,12 +246,12 @@ public class VendorBillingSubmission implements Serializable {
     }
 
     public void oncapture(CaptureEvent captureEvent) {
-        this.countPhotoClick++;
+        countPhotoClick++;
         byte[] data = captureEvent.getData();
         DocumentDetail document = new DocumentDetail();
         document.setDocImage(data);
-        document.setDocNo(this.genereratedRefID);
-        document.setDocPage(this.countPhotoClick);
+        document.setDocNo(genereratedRefID);
+        document.setDocPage(countPhotoClick);
         docCapturedList.add(document);
     }
 
@@ -242,14 +263,31 @@ public class VendorBillingSubmission implements Serializable {
 
     public void onSubmitDocument() {
         if (!docCapturedList.isEmpty()) {
-            this.billingMasterData.setInvoiceDate(this.getInvoiceDate());
-            this.billingMasterData.setInvoiceNo(this.getInvoiceNo());
-            this.billingMasterData.setVendorId(this.getVendorId());
+            populateBillingMaster();
+            populateBillingDetails();
             ejbBillingMasterFacade.create(billingMasterData);
+            ejbBillingDetailFacade.create(billingDetailData);
             for (DocumentDetail doc : docCapturedList) {
+                doc.setRefId(billingMasterData);
                 ejbDocumentDetailFacade.create(doc);
             }
         }
+    }
+
+    private void populateBillingMaster() {
+        billingMasterData.setInvoiceDate(getInvoiceDate());
+        billingMasterData.setInvoiceNo(getInvoiceNo());
+        billingMasterData.setVendorId(getVendorId());
+    }
+
+    private void populateBillingDetails() {
+        billingDetailData.setDocDate(getDocumentSelectedDate());
+        billingDetailData.setDocNo(getDocumentSelectedNo());
+        billingDetailData.setPages(countPhotoClick);
+        billingDetailData.setDocType(selectedDocumentType);
+        billingDetailData.setDocrefId(getGenereratedRefID());
+        billingDetailData.setUploadBy(getVendorName());
+        billingDetailData.setUploadDate(getDocumentSelectedDate());
     }
 
     private String testVendoSubmitPage() {
