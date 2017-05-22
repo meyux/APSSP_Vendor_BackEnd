@@ -47,7 +47,7 @@ public class VendorBillingSubmission implements Serializable {
     private String documentSelectedNo = "";
     private boolean isRenderSelectedNo = true;
 
-    private int documentSelectedPage = 1;
+    private int documentSelectedPage = 0;
     private Date documentSelectedDate = new Date();
 
     private String genereratedRefID = "";
@@ -246,19 +246,13 @@ public class VendorBillingSubmission implements Serializable {
     }
 
     public void oncapture(CaptureEvent captureEvent) {
-        countPhotoClick++;
+        documentSelectedPage = ++countPhotoClick;
         byte[] data = captureEvent.getData();
         DocumentDetail document = new DocumentDetail();
         document.setDocImage(data);
         document.setDocNo(genereratedRefID);
         document.setDocPage(countPhotoClick);
         docCapturedList.add(document);
-    }
-
-    public void onChangeDocumentType(ValueChangeEvent e) {
-        //get selected type
-        this.selectedDocumentType = "test";
-        setIsRenderSelectedNo(true);
     }
 
     public void onSubmitDocument() {
@@ -271,6 +265,7 @@ public class VendorBillingSubmission implements Serializable {
                 doc.setRefId(billingMasterData);
                 ejbDocumentDetailFacade.create(doc);
             }
+            reset();
         }
     }
 
@@ -285,9 +280,10 @@ public class VendorBillingSubmission implements Serializable {
         billingDetailData.setDocNo(getDocumentSelectedNo());
         billingDetailData.setPages(countPhotoClick);
         billingDetailData.setDocType(selectedDocumentType);
+//        billingDetailData.setDocType(options.get(Integer.parseInt(selectedDocumentType)-1).getLabel());
         billingDetailData.setDocrefId(getGenereratedRefID());
         billingDetailData.setUploadBy(getVendorName());
-        billingDetailData.setUploadDate(getDocumentSelectedDate());
+        billingDetailData.setUploadDate(new Date());
     }
 
     private String testVendoSubmitPage() {
