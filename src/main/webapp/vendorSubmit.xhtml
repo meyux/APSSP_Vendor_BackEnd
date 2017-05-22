@@ -43,7 +43,7 @@
                     </p:inputText>
                     <p:outputLabel value="Date" for="invoiceDetailsDate"/> <p:spacer/>
                     <p:calendar id="invoiceDetailsDate" value="#{vendorBillingSubmission.invoiceDate}" mode="popup" showOn="button" immediate="true">
-                        <p:ajax update="invoiceDetailsDate"/>
+                        <p:ajax />
                     </p:calendar>
                     <br/>
                     <br/>
@@ -68,7 +68,11 @@
                     </p:calendar>
                     <br/>
                         <p:photoCam widgetVar="pc" listener="#{vendorBillingSubmission.oncapture}"  />                        
-                        <p:commandButton type="button" value="Take Photo" onclick="PF('pc').capture()" /> 
+                        <p:commandButton type="button" value="Take Photo" onclick="PF('pc').capture()" >
+                            <p:ajax update="pageNo" />
+                        </p:commandButton>
+                        <p:outputLabel value="Page No. " /> 
+                        <h:outputText id="pageNo" value="#{vendorBillingSubmission.documentSelectedPage}"/>
                         <p:commandButton value="Submit"  actionListener="#{vendorBillingSubmission.onSubmitDocument}" /> 
                     </h:form>
 
