@@ -1,67 +1,58 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 
-    <f:view contentType="text/html">
-        <h:head>
-            <f:facet name="first">
-                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <title>AP Shared Services</title>
-                <h:outputStylesheet name="css/jsfcrud.css"/>
-            </f:facet>
-        </h:head>
+<f:view contentType="text/html">
+    <h:head>
+        <f:facet name="first">
+            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+            <title>PILMICO | AP Shared Services Portal</title>
+            <link rel="icon" href="resources/img/favicon.ico" type="image/png" />
 
-<!--        <h:body onload="#{vendorLoginController.prepareCreate()}">-->
-            <h:body>
-
-            <p:layout fullPage="true">
-
-                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
-                    <h1>Vendor Billing Submission</h1>
-                </p:layoutUnit>
-                <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
-                    Copyright
-                </p:layoutUnit>
-                <p:layoutUnit position="center">
-                    <h:form id="LoginForm">
-                        <p:outputLabel value="Login ID" for="loginId" /> <p:spacer></p:spacer>
+            <h:outputStylesheet name="css/jsfcrud.css" />
+        </f:facet>
+    </h:head>
+    <h:body>
+        <p:layout fullPage="true">
+            <p:layoutUnit position="north" size="80" resizable="true" closable="true" collapsible="true">
+                <!--<img src="resources/img/logo.png" alt="logo" width="117" height="39" />--> 
+                <h1>Vendor Billing Submission</h1>
+            </p:layoutUnit>
+            <p:layoutUnit styleClass="footer" position="south" size="50" closable="true" collapsible="true">
+                Copyright: www.philmico.com/apssp
+            </p:layoutUnit>
+            <p:layoutUnit position="center" style="text-align: center; ">
+                <h:form id="LoginForm" style="align-content: center">
+                    <br />
+                    <p:panelGrid columns="2" style="margin: 0 auto">
+                        <p:outputLabel value="Login ID" for="loginId" />
                         <p:inputText id="loginId" value="#{vendorBillingSubmission.loginId}" title="Vendor Login ID" />
-                        <p:spacer></p:spacer>
-                        <p:outputLabel value="Password" for="password" /> <p:spacer></p:spacer>
+                        <p:outputLabel value="Password" for="password" />
                         <p:password id="password" value="#{vendorBillingSubmission.password}" title="Vendor Login Password" />
-                        <br/>
+                        <span/>
                         <p:commandButton action="#{vendorBillingSubmission.checkLogin()}" value="Login" update="LoginForm" />
-                    </h:form>
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <!--<h:link outcome="/vendorLogin/List" value="Show All VendorLogin Items"/>-->
-                    <br />
-                    <!--<h:link outcome="/vendorMaster/List" value="Show All VendorMaster Items"/>-->
-                    <br />
-                    <!--<h:link outcome="/billingDetail/List" value="Show All BillingDetail Items"/>-->
-                    <br />
-                    <!--<h:link outcome="/billingMaster/List" value="Show All BillingMaster Items"/>-->
-                    <br />
-                    <!--<h:link outcome="/billingStatus/List" value="Show All BillingStatus Items"/>-->
-                    <br />
-                    <!--<h:link outcome="/statusMaster/List" value="Show All StatusMaster Items"/>-->
-                    <br />
-                    <!--<h:link outcome="/documentDetail/List" value="Show All DocumentDetail Items"/>-->
-                </p:layoutUnit>
-            </p:layout>
-        </h:body>
+                    </p:panelGrid>
+                </h:form>
+                <br />
+                <br />
+                <br />
+                <br />
+                <!--<h:link outcome="/vendorLogin/List" value="Show All VendorLogin Items"/>-->
+                <br />
+                <!--<h:link outcome="/vendorMaster/List" value="Show All VendorMaster Items"/>-->
+                <br />
+                <h:link outcome="/billingDetail/List" value="Show All BillingDetail Items" />
+                <br />
+                <h:link outcome="/billingMaster/List" value="Show All BillingMaster Items" />
+                <br />
+                <!--<h:link outcome="/billingStatus/List" value="Show All BillingStatus Items"/>-->
+                <br />
+                <!--<h:link outcome="/statusMaster/List" value="Show All StatusMaster Items"/>-->
+                <br />
+                <h:link outcome="/documentDetail/List" value="Show All DocumentDetail Items" />
+            </p:layoutUnit>
+        </p:layout>
+        <h:outputStylesheet name="css/custom_style.css" />
+    </h:body>
+</f:view>
 
-
-
-
-
-
-
-
-    </f:view>
 </html>

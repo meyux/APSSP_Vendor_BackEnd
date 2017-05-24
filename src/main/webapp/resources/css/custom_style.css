@@ -1,0 +1,23 @@
+.ui-layout-unit {
+    border: none;
+    padding: 0;
+}
+
+.ui-layout-north .ui-layout-unit-content {
+    background-color: #00aeef;
+    color: #ffffff  ;
+    background-image: url('../img/logo.png');
+    background-size: 117px 39px;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: 10% 3%; 
+    text-align: center;
+}
+
+.footer {
+    text-align: center;
+}
+
+.panelGridCenter {
+    margin: 0 auto;
+}
