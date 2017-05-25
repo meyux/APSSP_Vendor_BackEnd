@@ -279,8 +279,8 @@ public class VendorBillingSubmission implements Serializable {
         billingDetailData.setDocDate(getDocumentSelectedDate());
         billingDetailData.setDocNo(getDocumentSelectedNo());
         billingDetailData.setPages(countPhotoClick);
-        billingDetailData.setDocType(selectedDocumentType);
-//        billingDetailData.setDocType(options.get(Integer.parseInt(selectedDocumentType)-1).getLabel());
+//        billingDetailData.setDocType(selectedDocumentType);
+        billingDetailData.setDocType(options.get(Integer.parseInt(selectedDocumentType)-1).getLabel());
         billingDetailData.setDocrefId(getGenereratedRefID());
         billingDetailData.setUploadBy(getVendorName());
         billingDetailData.setUploadDate(new Date());

@@ -50,9 +50,6 @@ public class BillingDetail implements Serializable {
     @Size(min = 1, max = 12)
     @Column(name = "REF_ID")
     private String refId;
-    @Size(max = 10)
-    @Column(name = "DOC_TYPE")
-    private String docType;
     @Column(name = "PAGES")
     private Integer pages;
     @Size(max = 25)
@@ -73,6 +70,9 @@ public class BillingDetail implements Serializable {
     @Column(name = "UPLOAD_DATE")
     @Temporal(TemporalType.DATE)
     private Date uploadDate;
+    @Size(max = 30)
+    @Column(name = "DOC_TYPE")
+    private String docType;
     @JoinColumn(name = "REF_ID", referencedColumnName = "REF_ID", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private BillingMaster billingMaster;
